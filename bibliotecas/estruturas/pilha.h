@@ -22,7 +22,7 @@ char pilhaCheia(Pilha pilha) {
 
 void push(Pilha &pilha, int value) {
 	if(pilha.topo != TL_PILHA - 1) {
-		pilha.vetor[pilha.topo++] = value;
+		pilha.vetor[++pilha.topo] = value;
 	}
 }
 

@@ -8,12 +8,6 @@
 #include <ctype.h>
 #include <time.h>
 
-// ============================= bibliotecas desenvolvidas ===================================
-
-#include "./bibliotecas/estruturas.h"
-#include "./bibliotecas/importacomandos.h"
-#include "./bibliotecas/cliconfig.h"
-
 // ============================= constantes definidas =========================================
 
 #define TAM_PADRAO_BLOCOS 1000
@@ -23,6 +17,14 @@
 
 int qtdeBlocos = TAM_PADRAO_BLOCOS; // valor padrao de quantidade
 int qtdePilhas = TAM_PADRAO_PILHAS; // numero padrao de plihas para insercao nos blocos
+
+
+// ============================= bibliotecas desenvolvidas ===================================
+
+#include "./bibliotecas/estruturas.h"
+#include "./bibliotecas/importacomandos.h"
+#include "./bibliotecas/cliconfig.h"
+#include "./bibliotecas/utils.h"
 
 // ============================= funcoes para definicao de blocos =============================
 
@@ -62,7 +64,7 @@ void criaPilha(Bloco disco[]) {
 	
     // numero de pilhas necessaria para alocar os blocos
 	int numPilhas = pilhasQtde();
-	printf("Quantidade de pilhas definidas\n");
+	printf("Quantidade de pilhas definidas para: %d.\n", numPilhas);
 	
 	// calcula o numero inicial
 	int numeroInicial = numPilhas; 
@@ -77,11 +79,13 @@ void criaPilha(Bloco disco[]) {
     // preenche cada vetor com as posicoes disponiveis em disco
     int qtdeAtual = qtdeBlocos - 1;
     for (int i = 0; i < numPilhas; i++) {
-        for (int j = 0; j < 10 && qtdeAtual >= 0; j++) {
-            push(disco[i].pilha, qtdeAtual--);
+        for (int j = 0; j < 10 && qtdeAtual >= numPilhas; j++) {
+            push(disco[i].pilha, qtdeAtual);
+            qtdeAtual--;
         }
     }
     
+    qtdePilhas = numPilhas;
     printf("Pilhas preenchidas\n");
 }
 
@@ -101,12 +105,23 @@ void defineQtdeBlocos() {
 		printf("QUANTIDADE DEFINIDA PARA: %d\n", qtdeBlocos);
 }
 
+void testeExibicaoPilhas(Bloco disco[]) {
+    printf("Exibindo pilhas:\n");
+    for (int i = 0; i < qtdePilhas; i++) {
+        printf("Pilha %d:\n", i + 1);
+        Pilha pilha = disco[i].pilha;
+        printf("Topo: %d\n", pilha.topo);
+        printf("Blocos livres: ");
+        for (int j = 0; j <= pilha.topo; j++) {
+            printf("%d ", pilha.vetor[j]);
+        }
+        printf("\n");
+    }
+}
+
 void initCli() {
 	defineQtdeBlocos();
 }
-
-// ============================= funcoes uteis ===========================================
-
 
 // ============================= interface da CLI do programa ============================
 
@@ -125,8 +140,10 @@ void CLI(Bloco disco[]) {
 
 // ============================= funcao para chamar testes ===============================
 
-void teste() {
+void teste(Bloco disco[]) {
 	testeCodigoPrimeiroComando("ls");
+	funcaoTesteQtdeBlocosLivres(disco);
+	testeExibicaoPilhas(disco);
 }
 
 // =======================================================================================
@@ -140,6 +157,9 @@ int main(void) {
 	Sleep(2000);
 	system("cls");
 	
+	teste(disco); // <- funcao que chama os testes criados - tire o comentario para testar
+	int x = obterBlocoLivre(disco);
+	printf("Primeiro bloco livre: %d\n", x);
 	CLI(disco);
 	return 0;
 }
