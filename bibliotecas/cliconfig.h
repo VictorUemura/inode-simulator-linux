@@ -27,8 +27,11 @@ int codigoPrimeiroComando(char comando[100]) {
 		return 10;
 	else if(stricmp("df", comando) == 0)
 		return 11;
-	else
-		return - 1;
+	else if(stricmp("cls", comando) == 0)
+		return 12;
+	else if(stricmp("exit", comando) == 0)
+		return 13;
+	return - 1;
 }
 
 // funcao de teste
@@ -71,45 +74,67 @@ void erroComando(char comandoFlag[]) {
 	printf("-bash: %s: command not found\n", comandoFlag);
 }
 
-void menuComando(int codigoComando) {
+void menuComando(int codigoComando,char comando[], char comandoFlag[], Bloco disco[], char caminho[]) {
 	// menu de comandos
 	switch(codigoComando) {
 		// chmod
 		case 0:
 			break;
+			
 		// vi			
 		case 1:
 			break;
+			
 		// ls
 		case 2:
 			break;
+			
 		// mkdir
 		case 3:
 			break;
+			
 		// rmdir
 		case 4:
 			break;
+			
 		// rm
 		case 5:
 			break;
+			
 		// cd
 		case 6:
 			break;
+			
 		// link 
 		case 7:
 			break;
+			
 		// unlink
 		case 8:
 			break;
+			
 		// bad
 		case 9:
 			break;
+			
 		// touch
 		case 10:
 			break;
+			
 		// df
 		case 11:
 			break;
+			
+		// cls
+		case 12:
+			comandoCls();
+			break;
+		
+		// exit
+		case 13:
+			comandoExit();
+			break;
+			
 		// caso de erro
 		default:
 			erroComando(comandoFlag);

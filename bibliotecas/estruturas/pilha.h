@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-
 #define TL_PILHA 10
 
 struct Pilha {

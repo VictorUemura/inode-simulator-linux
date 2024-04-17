@@ -1,0 +1,3 @@
+void comandoCls() {
+	system("cls");
+}

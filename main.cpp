@@ -2,14 +2,17 @@
 
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
 #include<conio2.h>
 #include<windows.h>
 #include <ctype.h>
+#include <time.h>
 
 // ============================= bibliotecas desenvolvidas ===================================
 
-#include "bloco.h"
-#include "cliconfig.h"
+#include "./bibliotecas/estruturas.h"
+#include "./bibliotecas/importacomandos.h"
+#include "./bibliotecas/cliconfig.h"
 
 // ============================= constantes definidas =========================================
 
@@ -113,11 +116,10 @@ void CLI(Bloco disco[]) {
 	int codigoComando;
 	
 	while(true){
-		
 		exibeLinhaComando(caminho);
 		codigoComando = leituraComando(comando, comandoFlag);
 		
-		menuComando(codigoComando);
+		menuComando(codigoComando, comando, comandoFlag, disco, caminho);
 	}
 }
 

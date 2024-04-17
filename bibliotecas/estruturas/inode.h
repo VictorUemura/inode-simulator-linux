@@ -1,8 +1,3 @@
-#include "indireto.h"
-#include <time.h>
-#include <string.h>
-#include <stdio.h>
-
 struct Inode{
     char permissoes[11];
     char data[11];
