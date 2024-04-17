@@ -2,6 +2,9 @@
 
 #include<stdio.h>
 #include<string.h>
+#include<conio2.h>
+#include<windows.h>
+#include <ctype.h>
 
 // ============================= bibliotecas desenvolvidas ===================================
 
@@ -81,29 +84,41 @@ void criaPilha(Bloco disco[]) {
 
 void defineQtdeBlocos() {
     char input[20];
-	printf("Informe a quantidade de blocos para o programa [-1:PADRAO = 1000]:");
+	printf("Informe a quantidade de blocos para o programa [-1:PADRAO MAX = 1000]:");
     
 	fflush(stdout);
     fgets(input, sizeof(input), stdin);
     input[strcspn(input, "\n")] = '\0';
     qtdeBlocos = atoi(input);
     
-    if(qtdeBlocos != -1)
-		if(qtdeBlocos <= 10) {
-			printf("Quantidade invalida - UTILIZANDO TAMANHO PADRAO\n");
-            qtdeBlocos = 1000;
-		} else
-			printf("QUANTIDADE DEFINIDA PARA: %d\n", qtdeBlocos);
+	if(qtdeBlocos <= 10 || qtdeBlocos > 1000) {
+		printf("Quantidade invalida - UTILIZANDO TAMANHO PADRAO\n");
+        qtdeBlocos = 1000;
+	} else
+		printf("QUANTIDADE DEFINIDA PARA: %d\n", qtdeBlocos);
 }
 
 void initCli() {
 	defineQtdeBlocos();
 }
 
+// ============================= funcoes uteis ===========================================
+
+
 // ============================= interface da CLI do programa ============================
 
 void CLI(Bloco disco[]) {
+	// o caminho inicial e "~" ja determinado
+	char comando[100], comandoFlag[100], caminho[100] = "~";
+	int codigoComando;
 	
+	while(true){
+		
+		exibeLinhaComando(caminho);
+		codigoComando = leituraComando(comando, comandoFlag);
+		
+		menuComando(codigoComando);
+	}
 }
 
 // ============================= funcao para chamar testes ===============================
@@ -118,8 +133,10 @@ int main(void) {
 	// inicio do programa para a definicao do disco
 	initCli();
 	Bloco disco[qtdeBlocos];
-	
 	criaPilha(disco);
+	
+	Sleep(2000);
+	system("cls");
 	
 	CLI(disco);
 	return 0;
