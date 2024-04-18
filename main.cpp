@@ -167,9 +167,7 @@ int main(void) {
 	Sleep(2000);
 	system("cls");
 	
-	teste(disco); // <- funcao que chama os testes criados - tire o comentario para testar
-	int x = obterBlocoLivre(disco);
-	printf("Primeiro bloco livre: %d\n", x);
+	//teste(disco); // <- funcao que chama os testes criados - tire o comentario para testar
 	CLI(disco);
 	return 0;
 }
