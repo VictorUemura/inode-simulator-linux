@@ -20,9 +20,9 @@ int pegaNumero(char comando[]){
 void comandoBad(char comando[], Bloco disco[]){
 	int numBloco = pegaNumero(comando);
 	if(numBloco == -1)
-		printf("invalid argument\n");
-	if(numBloco <= qtdePilhas)
-		printf("invalid value");
+		printf("-bash: bad: invalid argument\n");
+	else if(numBloco <= qtdePilhas)
+		printf("-bash: bad: invalid value\n");
 	else{
 		disco[numBloco].tipo = 'b';
 		printf("The 'bad' command with argument '%d' has corrupted the block.\n", numBloco);
