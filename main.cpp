@@ -133,6 +133,12 @@ void initCli() {
 	defineQtdeBlocos();
 }
 
+// ============================= inicializa o diretorio do root  =========================
+
+void initRoot(Bloco disco[], int &endRoot) {
+	
+}
+
 // ============================= interface da CLI do programa ============================
 
 void CLI(Bloco disco[]) {
@@ -159,6 +165,8 @@ void teste(Bloco disco[]) {
 // =======================================================================================
 
 int main(void) {
+	int endRoot;
+	
 	// inicio do programa para a definicao do disco
 	initCli();
 	Bloco disco[qtdeBlocos];
