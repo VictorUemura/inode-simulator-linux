@@ -1,12 +1,30 @@
-int pegaNumero(char input[]) {
-    int numero;
-
-    sscanf(input, "%*s %d", &numero);
+int pegaNumero(char comando[]){
+	int numero;
+    if (strncmp(comando, "bad ", 4) != 0) {
+        return -1;
+    }
+    int i = 4;
     
+    while (comando[i] != '\0') {
+        if (!isdigit(comando[i])) {
+            return -1;
+        }
+        i++;
+    }
+
+    sscanf(comando,"%*s %d", &numero);
     return numero;
 }
 
+
 void comandoBad(char comando[], Bloco disco[]){
 	int numBloco = pegaNumero(comando);
-	printf("Bloco: %d", numBloco);
+	if(numBloco == -1)
+		printf("invalid argument\n");
+	if(numBloco <= qtdePilhas)
+		printf("invalid value");
+	else{
+		disco[numBloco].tipo = 'b';
+		printf("The 'bad' command with argument '%d' has corrupted the block.\n", numBloco);
+	}
 }
