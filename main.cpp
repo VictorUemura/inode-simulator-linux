@@ -38,6 +38,7 @@ Bloco initBlocoPilha(int prox) {
 }
 
 // retorna a quantidade de pilhas de acordo com o numero de blocos definidos
+// versao 1
 int pilhasQtde() {
 	int auxBlocos = qtdeBlocos;
 	int qtdePilhasInt;
@@ -59,6 +60,15 @@ int pilhasQtde() {
 	return qtdePilhasInt;
 }
 
+/*
+// versao 2
+int pilhasQtde() {
+    int blocosLivres = qtdeBlocos % 10 == 0 ? 0 : 10 - (qtdeBlocos % 10);
+    int qtdePilhasInt = qtdeBlocos / 10 + (blocosLivres > 0 ? 1 : 0);
+    return qtdePilhasInt;
+}
+*/
+
 // cria as pilhas
 void criaPilha(Bloco disco[]) {
 	
@@ -77,8 +87,8 @@ void criaPilha(Bloco disco[]) {
     printf("Pilhas criadas\n");
     
     // preenche cada vetor com as posicoes disponiveis em disco
-    int qtdeAtual = qtdeBlocos - 1;
-    for (int i = 0; i < numPilhas; i++) {
+    int qtdeAtual = qtdeBlocos - 1, index = 0;
+    for (int i = numPilhas - 1; i >= 0; i--, index++) {
         for (int j = 0; j < 10 && qtdeAtual >= numPilhas; j++) {
             push(disco[i].pilha, qtdeAtual);
             qtdeAtual--;
