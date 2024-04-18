@@ -38,6 +38,7 @@ Bloco initBlocoPilha(int prox) {
 }
 
 // retorna a quantidade de pilhas de acordo com o numero de blocos definidos
+/*
 // versao 1
 int pilhasQtde() {
 	int auxBlocos = qtdeBlocos;
@@ -59,15 +60,23 @@ int pilhasQtde() {
 	
 	return qtdePilhasInt;
 }
+*/
 
-/*
 // versao 2
 int pilhasQtde() {
-    int blocosLivres = qtdeBlocos % 10 == 0 ? 0 : 10 - (qtdeBlocos % 10);
-    int qtdePilhasInt = qtdeBlocos / 10 + (blocosLivres > 0 ? 1 : 0);
-    return qtdePilhasInt;
+	int auxBlocos = qtdeBlocos;
+	int qtdePilhasInt;
+
+	int pilhasCheias = auxBlocos / 10;
+	int qtdeRetirada = pilhasCheias / 10;
+	qtdePilhasInt = pilhasCheias - qtdeRetirada;
+	
+	int qtdeAtualBlocos = auxBlocos - qtdePilhasInt * 10 - qtdePilhasInt;
+	if(qtdeAtualBlocos >= 1)
+		qtdePilhasInt++;
+	
+	return qtdePilhasInt;
 }
-*/
 
 // cria as pilhas
 void criaPilha(Bloco disco[]) {
@@ -186,7 +195,7 @@ int main(void) {
 	Sleep(2000);
 	system("cls");
 	
-	//teste(disco); // <- funcao que chama os testes criados - tire o comentario para testar
+	teste(disco); // <- funcao que chama os testes criados - tire o comentario para testar
 	CLI(disco, endRoot);
 	return 0;
 }
