@@ -1,5 +1,6 @@
 struct Inode{
     char permissoes[11];
+    char tipo;
     char data[11];
     char hora[6];
     int tamanho;

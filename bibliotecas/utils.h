@@ -46,3 +46,4 @@ int obterBlocoLivre(Bloco disco[]) {
     return -1;
 }
 
+

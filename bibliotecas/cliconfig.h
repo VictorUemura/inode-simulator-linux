@@ -63,11 +63,15 @@ void primeiroCodigo(char comando[], char comandoFlag[]) {
 }
 
 int leituraComando(char comando[], char comandoFlag[]) {
-	fflush(stdin);
-	scanf("%s", comando);
-	
-	primeiroCodigo(comando, comandoFlag);
-	return codigoPrimeiroComando(comandoFlag);
+    fflush(stdin);
+    int resultado = scanf("%99[^\n]", comando);
+
+    if (resultado == 0) {
+        return -2;
+    } else {
+        primeiroCodigo(comando, comandoFlag);
+        return codigoPrimeiroComando(comandoFlag);
+    }
 }
 
 void erroComando(char comandoFlag[]) {
@@ -134,7 +138,11 @@ void menuComando(int codigoComando,char comando[], char comandoFlag[], Bloco dis
 		case 13:
 			comandoExit();
 			break;
-			
+		
+		// enter pressionado
+		case -2:
+			break;
+		
 		// caso de erro
 		default:
 			erroComando(comandoFlag);

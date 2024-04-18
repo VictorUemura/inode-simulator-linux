@@ -136,12 +136,21 @@ void initCli() {
 // ============================= inicializa o diretorio do root  =========================
 
 void initRoot(Bloco disco[], int &endRoot) {
+	Inode inodeRoot = criaModeloInode("~", 'd', "rw-r--r--");
 	
+	endRoot = obterBlocoLivre(disco);
+	
+	if(endRoot != -1) {
+		disco[endRoot] = initBlocoInode();
+		disco[endRoot].inode = inodeRoot;
+		textcolor(LIGHTGREEN); printf("Root inicializado...\n");
+		textcolor(WHITE); printf("Direcionando para o terminal...\n");
+	}
 }
 
 // ============================= interface da CLI do programa ============================
 
-void CLI(Bloco disco[]) {
+void CLI(Bloco disco[], int endRoot) {
 	// o caminho inicial e "~" ja determinado
 	char comando[100], comandoFlag[100], caminho[100] = "~";
 	int codigoComando;
@@ -172,10 +181,12 @@ int main(void) {
 	Bloco disco[qtdeBlocos];
 	criaPilha(disco);
 	
+	initRoot(disco, endRoot);
+	
 	Sleep(2000);
 	system("cls");
 	
 	//teste(disco); // <- funcao que chama os testes criados - tire o comentario para testar
-	CLI(disco);
+	CLI(disco, endRoot);
 	return 0;
 }
