@@ -91,6 +91,7 @@ void menuComando(int codigoComando, char comando[], char comandoFlag[], Bloco di
 			
 		// ls
 		case 2:
+			comandoLs(endRoot, disco, caminho);
 			break;
 			
 		// mkdir
