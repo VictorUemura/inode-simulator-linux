@@ -22,7 +22,7 @@ void comandoBad(char comando[], Bloco disco[]){
 	if(numBloco == -1)
 		printf("-bash: bad: invalid argument\n");
 	else if(numBloco <= qtdePilhas)
-		printf("-bash: bad: invalid value\n");
+		printf("-bash: bad: invalid argument\n");
 	else{
 		disco[numBloco].tipo = 'b';
 		printf("The 'bad' command with argument '%d' has corrupted the block.\n", numBloco);

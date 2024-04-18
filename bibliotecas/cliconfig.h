@@ -105,6 +105,7 @@ void menuComando(int codigoComando, char comando[], char comandoFlag[], Bloco di
 			
 		// rm
 		case 5:
+			comandoRm(comando, disco, endRoot);
 			break;
 			
 		// cd
