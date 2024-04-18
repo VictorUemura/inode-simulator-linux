@@ -1,50 +1,46 @@
+// Função para criar um novo diretório
 void criarDiretorio(char nomeDiretorio[], Bloco disco[], char caminho[], int endRoot) {
+    // Verificar se há blocos livres disponíveis
     int blocoLivre = obterBlocoLivre(disco);
-    
-    // verifica se existe algum bloco livre
     if (blocoLivre == -1) {
         printf("Error: There are no free blocks available to create the directory.\n");
         return;
     }
     
+    // Criar um novo inode para o diretório
     Inode inodeDiretorio = criaModeloInode(nomeDiretorio, 'd', "rw-r--r--");
     
+    // Inicializar um novo bloco para o inode do diretório
     disco[blocoLivre] = initBlocoInode();
     disco[blocoLivre].inode = inodeDiretorio;
     
     // Atualizar a entrada do diretório pai com o novo diretório
-    // Esta parte precisa ser implementada de acordo com a lógica do seu sistema de arquivos
-    // Por exemplo, você precisa verificar a estrutura do diretório pai e atualizar suas entradas conforme necessário
-    
-    // Exemplo de atualização da estrutura de diretório do root
-    // Isso pode variar dependendo da estrutura exata do seu sistema de arquivos
-    // Aqui, assumimos que o diretório root é um diretório padrão com uma estrutura de array de entradas de diretório
-
-    // Verificar se há espaço na entrada do diretório pai para adicionar o novo diretório
+    int indiceEntradaVazia = obterIndiceEntradaVazia(disco[endRoot].diretorio);
     if (indiceEntradaVazia == -1) {
-        printf("Erro: Não há espaço suficiente no diretório pai para adicionar o novo diretório.\n");
+        printf("Error: There is not enough space in the parent directory to add the new directory.\n");
         return;
     }
     
     // Adicionar a nova entrada ao diretório pai
-    strcpy(disco[0].diretorio.entradas[indiceEntradaVazia].nome, nomeDiretorio);
-    disco[0].diretorio.entradas[indiceEntradaVazia].inodeEndereco = blocoLivre;
+    strcpy(disco[endRoot].diretorio.entradas[indiceEntradaVazia].nome, nomeDiretorio);
+    disco[endRoot].diretorio.entradas[indiceEntradaVazia].inodeEndereco = blocoLivre;
     
     // Atualizar o caminho atual
     strcat(caminho, "/");
     strcat(caminho, nomeDiretorio);
     
-    printf("Diretório '%s' criado com sucesso.\n", nomeDiretorio);
+    printf("Directory '%s' created successfully.\n", nomeDiretorio);
 }
 
+// Função que implementa o comando mkdir
 void comandoMkdir(Bloco disco[], char comando[], char caminho[], int endRoot) {
-    // verifica se mkdir contem argumentos
+    // Verificar se o comando mkdir contém argumentos
     if (strlen(comando) == 0) {
         printf("Error: The 'mkdir' command requires an argument (directory name to be created).\n");
         return;
     }
     
-    // recupera o nome do diretorio
+    // Extrair o nome do diretório do comando
     char *token = strtok(comando, " ");
     token = strtok(NULL, " ");
     
@@ -56,7 +52,7 @@ void comandoMkdir(Bloco disco[], char comando[], char caminho[], int endRoot) {
     char nomeDiretorio[50];
     strcpy(nomeDiretorio, token);
     
-    // busca diretorio
-    
-    criarDiretorio(nomeDiretorio, disco, caminho);
+    // Criar o diretório
+    criarDiretorio(nomeDiretorio, disco, caminho, endRoot);
 }
+
