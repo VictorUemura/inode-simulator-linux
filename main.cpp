@@ -11,7 +11,7 @@
 // ============================= constantes definidas =========================================
 
 #define TAM_PADRAO_BLOCOS 1000
-#define TAM_PADRAO_PILHAS 90
+#define TAM_PADRAO_PILHAS 91
 
 // ============================= variaveis globais definidas para utilizacao ==================
 
