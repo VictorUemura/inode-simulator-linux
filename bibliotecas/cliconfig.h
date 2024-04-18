@@ -9,7 +9,7 @@ int codigoPrimeiroComando(char comando[100]) {
 		return 1;
 	else if(stricmp("ls", comando) == 0) 
 		return 2;
-	else if(stricmp("mkdir", comando) == 0) 
+	else if(stricmp("mkdir", comando) == 0)
 		return 3;
 	else if(stricmp("rmdir", comando) == 0) 
 		return 4;
@@ -78,7 +78,7 @@ void erroComando(char comandoFlag[]) {
 	printf("-bash: %s: command not found\n", comandoFlag);
 }
 
-void menuComando(int codigoComando,char comando[], char comandoFlag[], Bloco disco[], char caminho[]) {
+void menuComando(int codigoComando, char comando[], char comandoFlag[], Bloco disco[], char caminho[], int endRoot) {
 	// menu de comandos
 	switch(codigoComando) {
 		// chmod
@@ -95,6 +95,7 @@ void menuComando(int codigoComando,char comando[], char comandoFlag[], Bloco dis
 			
 		// mkdir
 		case 3:
+			comandoMkdir(disco, comando, caminho, endRoot);
 			break;
 			
 		// rmdir
@@ -119,6 +120,7 @@ void menuComando(int codigoComando,char comando[], char comandoFlag[], Bloco dis
 			
 		// bad
 		case 9:
+			comandoBad(comando, disco);
 			break;
 			
 		// touch

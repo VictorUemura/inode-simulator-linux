@@ -22,9 +22,9 @@ int qtdePilhas = TAM_PADRAO_PILHAS; // numero padrao de plihas para insercao nos
 // ============================= bibliotecas desenvolvidas ===================================
 
 #include "./bibliotecas/estruturas.h"
+#include "./bibliotecas/utils.h"
 #include "./bibliotecas/importacomandos.h"
 #include "./bibliotecas/cliconfig.h"
-#include "./bibliotecas/utils.h"
 
 // ============================= funcoes para definicao de blocos =============================
 
@@ -168,7 +168,7 @@ void CLI(Bloco disco[], int endRoot) {
 		exibeLinhaComando(caminho);
 		codigoComando = leituraComando(comando, comandoFlag);
 		
-		menuComando(codigoComando, comando, comandoFlag, disco, caminho);
+		menuComando(codigoComando, comando, comandoFlag, disco, caminho, endRoot);
 	}
 }
 
@@ -195,7 +195,7 @@ int main(void) {
 	Sleep(2000);
 	system("cls");
 	
-	teste(disco); // <- funcao que chama os testes criados - tire o comentario para testar
+	//teste(disco); // <- funcao que chama os testes criados - tire o comentario para testar
 	CLI(disco, endRoot);
 	return 0;
 }

@@ -46,4 +46,37 @@ int obterBlocoLivre(Bloco disco[]) {
     return -1;
 }
 
+// busca um nome de inode dentro de um bloco do tipo de diretorio pelo nome do inode
+int buscaInodePorEnderecoDiretorio(Diretorio diretorio, char nome[]) {
+    for (int i = 0; i < 10; i++) {
+        if (diretorio.entradas[i].inodeEndereco != -1) {
+            if (strcmp(diretorio.entradas[i].nome, nome) == 0) {
+                return diretorio.entradas[i].inodeEndereco;
+            }
+        }
+    }
+    return -1;
+}
+
+// busca diretorio pelo seu nome com o endereco de algum diretorio com entradas
+int buscaDiretorio(Bloco disco[], int endDiretorio, char nome[]) {
+    int endInodeDiretorio = buscaInodePorEnderecoDiretorio(disco[endDiretorio].diretorio, nome);
+    if (endInodeDiretorio != -1) {
+        return endInodeDiretorio;
+    }
+    return -1;
+}
+
+int buscaDiretorioInode(Bloco disco[], int endInode, char nome[]) {
+    for (int i = 0; i < 5; i++) {
+        int end = disco[endInode].inode.direto[i];
+        if (end != -1) {
+            int enderecoBuscado = buscaDiretorio(disco, end, nome);
+            if (enderecoBuscado != -1) {
+                return enderecoBuscado;
+            }
+        }
+    }
+    return -1;
+}
 
